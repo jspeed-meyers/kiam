@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      id-token: write
 
     steps:
     - name: Checkout code
@@ -24,3 +25,7 @@ jobs:
 
     - name: Run tests
       run: go test ./...
+
+    - name: Fix my build
+      uses: fly-ci/wingman-action@v1
+      if: failure()
