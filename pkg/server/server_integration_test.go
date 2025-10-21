@@ -40,6 +40,7 @@ func TestHealthReturnsOk(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	defer client.Close()
 
 	ctxCall, cancelCall := context.WithTimeout(ctx, time.Second*5)
 	defer cancelCall()
@@ -63,6 +64,7 @@ func TestRetriesUntilServerAvailable(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+	defer gateway.Close()
 	server.Stop()
 
 	ok := make(chan string)
